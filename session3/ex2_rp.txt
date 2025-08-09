@@ -1,0 +1,2 @@
+Sau khi fork, tiến trình con và tiến trình cha mang PID riêng, nhưng giống hệt các phần text segment,  data segment, stack và heap.
+Khi execlp chạy sẽ thay thế toàn bộ các segment trên với tiến trình để chạy ls, ngoại trừ PID vẫn giữ nguyên
