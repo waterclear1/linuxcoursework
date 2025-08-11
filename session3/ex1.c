@@ -26,7 +26,7 @@ int main() {
         printf("Waiting for child to terminate...\n");
         wait(&status);
         printf("\nChild terminated.\n");  //bury child's process
-        if (WIFEXITED(status)) {  //check if child's bury
+        if (WIFEXITED(status)) {  //check if child's buried
             int exit_code = WEXITSTATUS(status);
             printf("child exit code: %d \n ", exit_code);
         }
