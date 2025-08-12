@@ -1,0 +1,9 @@
+1. Taị sao zombie và orphan xuất hiện?
+- Khi một tiến trình con kết thúc (bằng cách gọi exit() hoặc return từ hàm main), nó không biến mất ngay lập tức. Nó giải phóng toàn bộ tài nguyên (bộ nhớ, file handles) nhưng vẫn giữ lại một mục (PID + exit status)	 trong bảng tiến trình (process table) của kernel.
+Tiến trình zombie sẽ tồn tại cho đến khi tiến trình cha của nó gọi wait() để đọc trạng thái của nó, hoặc phải kill -9 tiến trình cha.
+- Trạng thái Orphan xảy ra khi một tiến trình cha kết thúc trước tiến trình con của nó, khi đó orphan sẽ có tiến trình cha mới là systemd/init.
+2. Ý nghĩa
+- Zombie là trạng thái đảm bảo thông tin về pid và exit status của con ko bị mất, chờ đợi tiến trình cha nhận ra và đọc những giá trị đó. Tiến trình zombie có thể chiếm dụng tài nguyên như cpu hay bộ nhớ, nó còn chiếm 1 chỗ trong bảng tiến trình.
+- Tiến trình mô côi có nguy cơ trở thành tiến trình zombie vĩnh viễn, nhưng với cơ chế nhận nuôi từ init hay systemd, sẽ cho phép dọn dẹp những tiến trình mô côi này khi chúng kết thúc, tránh cho việc làm đầy bảng tiến trình
+
+
