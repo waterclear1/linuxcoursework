@@ -1,0 +1,2 @@
+pthread_join có tham số là biến/tên luồng, pthread_join được thực hiện bởi 1 luồng khác trong cùng 1 tiến trình, khác với pthread_exit tự thoát khỏi chính luồng sử dụng.
+pthread_create tạo ra luồng mới bằng cách gọi start_routine(), nếu tham số attr là NULL thì luồng sẽ mang những đặc tính mặc định, khi luồng mới được khởi tạo, có thể truyền 1 tham số vào luồng (arg). Luồng return sẽ tương tự như dùng pthread_exit.
