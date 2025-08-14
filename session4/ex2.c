@@ -7,7 +7,7 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 void *increment(void *arg){
     
-    while(1){
+    while(1){ //infinite loop, stop condition is placed inside
         pthread_mutex_lock(&lock);
         if(counter == MAX){
             pthread_mutex_unlock(&lock);
