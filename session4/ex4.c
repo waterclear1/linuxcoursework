@@ -1,9 +1,12 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
+
+// Define the number of reader and writer threads
 #define NUM_READERS 5
 #define NUM_WRITERS 2
 
+// The shared integer resource that threads will access.
 int shared_resource = 0;  
 pthread_rwlock_t rw_lock; 
 
@@ -14,11 +17,11 @@ void* reader_function(void* arg) {
 
     printf("Student with %ld is reading, the value is %d\n", id, shared_resource);  
 
-    sleep(1);       //simulate the reading time, all students will read in 1 second parallel
-
+    sleep(1);       //simulate the reading time, This pause helps make the
+                    //concurrent execution of multiple readers more observable from the output
     printf("Student with %ld done reading.\n", id);     
 
-    pthread_rwlock_unlock(&rw_lock);
+    pthread_rwlock_unlock(&rw_lock);// Release the lock.
 
     return NULL;    
 }
@@ -36,8 +39,8 @@ void* writer_function(void* arg) {
     sleep(1); //simulate writing time
 
     printf("Teacher with id %ld wrote new value: %d\n", id, shared_resource);  
-
-    pthread_rwlock_unlock(&rw_lock);
+    
+    pthread_rwlock_unlock(&rw_lock);  // Release the lock.
 
     return NULL;
 }
@@ -58,7 +61,7 @@ int main() {
         pthread_create(&writers[i], NULL, writer_function, (void*)i);
     }
 
-
+    //crucial to ensure the main thread doesn't exit prematurely
     for (int i = 0; i < NUM_READERS; i++) {
         pthread_join(readers[i], NULL);
     }
