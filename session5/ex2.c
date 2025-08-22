@@ -4,14 +4,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-
+#define NUM_SIG 10
 
 volatile sig_atomic_t sigalrm_count = 0;
 
 void handle_sigalrm(int signal){
     printf("Recieved %d (%s)\n",signal, strsignal(signal));
     sigalrm_count++;
-    if (sigalrm_count >=10) exit(0);
+    if (sigalrm_count >=NUM_SIG) exit(0);
 }
 
 

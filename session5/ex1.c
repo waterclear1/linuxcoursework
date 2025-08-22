@@ -4,14 +4,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-
+#define NUM_SIG 3
 
 volatile sig_atomic_t sigint_count = 0;
 
 void handle_signint(int signal){
     printf("Caught signal %d (%s) \n", signal, strsignal(signal));
     sigint_count++;
-    if (sigint_count >=3) exit(0);
+    if (sigint_count >= NUM_SIG) exit(0);
 }
 
 
